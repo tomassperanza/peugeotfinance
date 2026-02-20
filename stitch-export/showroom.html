@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peugeot Finance — Elegí tu próximo 0km</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --accent: #0caee4;
+            --accent-dark: #0074bd;
+            --green: #25D366;
+            --red: #ff4458;
+            --bg: #f4f6f8;
+            --white: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.13);
+        }
+
+        body {
+            font-family: 'Manrope', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 36px; height: 36px; fill: var(--text); }
+        .logo-text { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
+        .logo-text span { font-weight: 300; color: var(--muted); }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .left-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
+        .headline { text-align: center; margin-bottom: 32px; width: 100%; }
+        .headline h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.1; letter-spacing: -1px; }
+        .headline h1 span { color: var(--accent); }
+        .headline p { color: var(--muted); margin-top: 10px; font-size: 1rem; }
+
+        .stack-wrap { position: relative; width: 100%; max-width: 520px; height: 560px; margin: 0 auto; }
+
+        .card {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            touch-action: none;
+            will-change: transform;
+            transition: box-shadow 0.2s;
+        }
+
+        .card .overlay-yes, .card .overlay-no {
+            position: absolute;
+            top: 24px;
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            border: 4px solid;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s;
+            text-transform: uppercase;
+        }
+        .card .overlay-yes { left: 24px; color: var(--green); border-color: var(--green); transform: rotate(-12deg); }
+        .card .overlay-no { right: 24px; color: var(--red); border-color: var(--red); transform: rotate(12deg); }
+
+        .card-img { height: 62%; width: 100%; object-fit: cover; display: block; background: #e2e8f0; flex-shrink: 0; }
+
+        .card-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-body { padding: 20px 24px 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-body h3 { font-size: 1.5rem; font-weight: 800; line-height: 1.1; }
+        .card-body .tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-top: 4px; }
+        .card-body .desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; margin-top: 10px; }
+        .card-hint { font-size: 0.75rem; color: #94a3b8; text-align: center; margin-top: 8px; font-weight: 500; }
+
+        .swipe-actions { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 28px; }
+        .action-btn {
+            width: 60px; height: 60px; border-radius: 50%; border: 2px solid;
+            background: var(--white); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.18s, box-shadow 0.18s;
+            box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.12);
+        }
+        .action-btn:hover { transform: scale(1.12); box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.18); }
+        .action-btn:active { transform: scale(0.95); }
+        .btn-nope { border-color: #fecaca; color: var(--red); }
+        .btn-nope:hover { background: #fff0f0; }
+        .btn-info { border-color: #bae6fd; color: var(--accent); width: 52px; height: 52px; }
+        .btn-info:hover { background: #f0faff; }
+        .btn-like { border-color: #bbf7d0; color: var(--green); }
+        .btn-like:hover { background: #f0fff7; }
+        .action-btn .material-symbols-outlined { font-size: 28px; }
+        .btn-info .material-symbols-outlined { font-size: 24px; }
+
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; width: 100%; max-width: 560px; }
+        .feat { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+        .feat-icon {
+            width: 48px; height: 48px; border-radius: 14px; background: var(--white);
+            border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+            color: var(--accent); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); transition: background 0.2s, color 0.2s;
+        }
+        .feat:hover .feat-icon { background: var(--accent); color: white; }
+        .feat-title { font-size: 0.78rem; font-weight: 700; }
+        .feat-sub { font-size: 0.72rem; color: var(--muted); }
+
+        .chat-col { position: sticky; top: 88px; }
+        .chat-box {
+            height: 660px; border-radius: 28px; overflow: hidden;
+            box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border); background: var(--white); display: flex; flex-direction: column;
+        }
+        .chat-header {
+            background: var(--green); padding: 16px 20px; display: flex;
+            align-items: center; justify-content: space-between; color: white; flex-shrink: 0;
+        }
+        .chat-avatar-wrap { display: flex; align-items: center; gap: 12px; }
+        .chat-avatar {
+            width: 46px; height: 46px; border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            background: #c4e6ff; position: relative; flex-shrink: 0;
+        }
+        .online-dot {
+            position: absolute; bottom: 1px; right: 1px; width: 12px; height: 12px;
+            background: #4ade80; border: 2px solid var(--green); border-radius: 50%;
+        }
+        .chat-name { font-weight: 700; font-size: 1rem; }
+        .chat-status { font-size: 0.75rem; opacity: 0.88; display: flex; align-items: center; gap: 4px; }
+        .chat-status::before { content: ''; width: 7px; height: 7px; background: rgba(255,255,255,0.8); border-radius: 50%; }
+
+        .chat-messages {
+            flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+            background: #ece5dd url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%23ece5dc'/%3E%3Ccircle cx='30' cy='30' r='1' fill='%23d4c8bc' opacity='0.4'/%3E%3C/svg%3E");
+        }
+        .msg-bubble {
+            background: white; padding: 12px 16px; border-radius: 4px 16px 16px 16px;
+            max-width: 82%; font-size: 0.875rem; line-height: 1.5; color: #1f2937;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1); position: relative;
+        }
+        .msg-bubble.liked { background: #d9fdd3; border-radius: 16px 4px 16px 16px; align-self: flex-end; }
+        .msg-time { font-size: 0.65rem; color: #94a3b8; margin-top: 4px; }
+
+        .model-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+        .chip {
+            background: white; border: 1.5px solid var(--accent); color: var(--accent);
+            border-radius: 100px; padding: 5px 14px; font-size: 0.75rem; font-weight: 600;
+            cursor: pointer; transition: background 0.15s, color 0.15s;
+        }
+        .chip:hover { background: var(--accent); color: white; }
+
+        .chat-input-area { padding: 14px 16px; background: var(--white); border-top: 1px solid var(--border); flex-shrink: 0; }
+        .input-row { display: flex; align-items: center; gap: 10px; background: #f0f2f5; border-radius: 100px; padding: 8px 16px; }
+        .input-row input { flex: 1; border: none; background: transparent; font-family: inherit; font-size: 0.875rem; color: var(--text); }
+        .input-row input:focus { outline: none; }
+        .input-row input::placeholder { color: #94a3b8; }
+        .input-row .material-symbols-outlined { color: #94a3b8; font-size: 22px; cursor: pointer; }
+
+        .send-btn {
+            width: 42px; height: 42px; border-radius: 50%; background: var(--green); border: none;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; color: white;
+            margin-top: 8px; margin-left: auto;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35); transition: transform 0.15s;
+        }
+        .send-btn:hover { transform: scale(1.07); }
+        .send-btn .material-symbols-outlined { font-size: 20px; }
+
+        .info-overlay {
+            position: fixed; inset: 0; z-index: 200;
+            background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+            display: flex; align-items: flex-end; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s;
+        }
+        .info-overlay.open { opacity: 1; pointer-events: all; }
+        .info-sheet {
+            background: white; width: 100%; max-width: 520px;
+            border-radius: 28px 28px 0 0; padding: 0 0 40px;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+            max-height: 85dvh; overflow-y: auto;
+        }
+        .info-overlay.open .info-sheet { transform: translateY(0); }
+        .info-handle { width: 40px; height: 4px; background: #cbd5e1; border-radius: 2px; margin: 14px auto 0; }
+        .info-img { width: 100%; height: 200px; object-fit: cover; display: block; margin-top: 16px; background: #e2e8f0; }
+        .info-content { padding: 24px 28px 0; }
+        .info-model-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 6px; }
+        .info-title { font-size: 1.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+        .info-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; white-space: pre-line; }
+        .info-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+        .spec-item { background: #f8fafc; border-radius: 14px; padding: 14px 16px; border: 1px solid var(--border); }
+        .spec-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .spec-val { font-size: 0.85rem; font-weight: 800; margin-top: 4px; }
+        .info-cta { display: flex; gap: 12px; margin-top: 24px; }
+        .info-cta button { flex: 1; padding: 14px; border-radius: 14px; border: none; font-family: inherit; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, opacity 0.15s; }
+        .info-cta button:hover { opacity: 0.88; transform: scale(1.02); }
+        .cta-like { background: var(--green); color: white; }
+        .cta-next { background: #f1f5f9; color: var(--text); }
+
+        .end-screen { display: none; flex-direction: column; align-items: center; justify-content: center; height: 520px; gap: 16px; text-align: center; }
+        .end-screen.visible { display: flex; }
+        .end-icon { font-size: 4rem; }
+        .end-screen h3 { font-size: 1.4rem; font-weight: 800; }
+        .end-screen p { color: var(--muted); font-size: 0.9rem; }
+        .restart-btn {
+            margin-top: 8px; padding: 12px 28px; background: var(--accent); color: white;
+            border: none; border-radius: 100px; font-family: inherit; font-size: 0.9rem;
+            font-weight: 700; cursor: pointer; transition: transform 0.15s;
+        }
+        .restart-btn:hover { transform: scale(1.05); }
+
+        .typing-indicator {
+            display: flex; align-items: center; gap: 5px; background: white;
+            padding: 14px 18px; border-radius: 4px 16px 16px 16px;
+            width: fit-content; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .typing-indicator span {
+            width: 8px; height: 8px; background: #94a3b8; border-radius: 50%;
+            display: inline-block; animation: typingBounce 1.2s infinite ease-in-out;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        @media (max-width: 900px) {
+            main { grid-template-columns: 1fr; gap: 32px; padding: 24px 16px 48px; }
+            .chat-col { position: static; }
+            .chat-box { height: 560px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <span class="logo-icon" style="font-size:2rem;line-height:1;">🦁</span>
+            <span class="logo-text">Peugeot <span>Finance</span></span>
+        </div>
+    </header>
+
+    <main>
+        <!-- LEFT: SWIPE DECK -->
+        <div class="left-col">
+            <div class="headline">
+                <h1>Elegí tu próximo <span>Peugeot</span></h1>
+                <p>Deslizá para descubrir modelos y financiación exclusiva.</p>
+            </div>
+
+            <div class="stack-wrap" id="stackWrap"></div>
+
+            <div class="end-screen" id="endScreen">
+                <div class="end-icon">🎉</div>
+                <h3>¡Viste todos los modelos!</h3>
+                <p>Hablá con Lourdes para encontrar tu Peugeot ideal.</p>
+                <button class="restart-btn" onclick="restart()">Volver a ver modelos</button>
+            </div>
+
+            <div class="swipe-actions" id="swipeActions">
+                <button class="action-btn btn-nope" id="btnNope" onclick="swipeLeft()" title="No me interesa">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <button class="action-btn btn-info" id="btnInfo" onclick="openInfo()" title="Ver información">
+                    <span class="material-symbols-outlined">info</span>
+                </button>
+                <button class="action-btn btn-like" id="btnLike" onclick="swipeRight()" title="Me interesa">
+                    <span class="material-symbols-outlined">favorite</span>
+                </button>
+            </div>
+
+            <p class="card-hint" id="swipeHint">← Deslizá o usá los botones →</p>
+
+            <div class="features">
+                <div class="feat">
+                    <div class="feat-icon"><span class="material-symbols-outlined">verified_user</span></div>
+                    <div class="feat-title">Sin letra chica</div>
+                    <div class="feat-sub">Transparencia total</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon"><span class="material-symbols-outlined">local_shipping</span></div>
+                    <div class="feat-title">Entrega pactada</div>
+                    <div class="feat-sub">Stock real en mano</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon"><span class="material-symbols-outlined">handshake</span></div>
+                    <div class="feat-title">Tomamos tu usado</div>
+                    <div class="feat-sub">Mejor cotización</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: CHAT -->
+        <div class="chat-col">
+            <div class="chat-box">
+                <div class="chat-header">
+                    <div class="chat-avatar-wrap">
+                        <div class="chat-avatar" style="overflow:hidden;padding:0;">
+                            <img src="../foto lourdes/Gemini_Generated_Image_4vffn34vffn34vff.png" alt="Lourdes"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+                            <div class="online-dot"></div>
+                        </div>
+                        <div>
+                            <div class="chat-name">Lourdes</div>
+                            <div class="chat-status">Online ahora</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages"></div>
+
+                <div class="chat-input-area">
+                    <div class="input-row">
+                        <input type="text" id="chatInput" placeholder="Escribí tu mensaje..."
+                            onkeydown="handleKey(event)" />
+                    </div>
+                    <button class="send-btn" onclick="sendMsg()">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- INFO BOTTOM SHEET -->
+    <div class="info-overlay" id="infoOverlay" onclick="closeInfoOutside(event)">
+        <div class="info-sheet" id="infoSheet">
+            <div class="info-handle"></div>
+            <img id="infoImg" class="info-img" alt="" src="" />
+            <div class="info-content">
+                <div class="info-model-tag" id="infoTag"></div>
+                <div class="info-title" id="infoTitle"></div>
+                <div class="info-desc" id="infoDesc"></div>
+                <div class="info-specs" id="infoSpecs"></div>
+                <div class="info-cta">
+                    <button class="cta-like" onclick="swipeRight(); closeInfo();">
+                        <span style="font-size:1.1em">❤️</span> Me interesa
+                    </button>
+                    <button class="cta-next" onclick="closeInfo()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MODELS = [
+            {
+                name: '208 Allure Manual',
+                tag: 'Hatchback · Plan 80% · 84 cuotas',
+                badge: 'DESDE $344.578/mes',
+                img: '../img sin fondo/208 allure manual.png',
+                desc: 'Hatchback con i-Cockpit®, 6 airbags y la cuota más baja de la línea 208.',
+                specs: [
+                    { label: 'Valor móvil', val: '$36.370.000' },
+                    { label: 'Plan', val: '80% — 84 cuotas en pesos' },
+                    { label: 'Cuota desde', val: '$344.578 / mes' },
+                    { label: 'Cuota 1 + Sus.', val: '$1.175.000 (–$417.000 c/débito)' },
+                ],
+                lorem: 'Financiá el 80% del vehículo en 84 cuotas sin intereses y en pesos. Cuota 1 + Suscripción: $1.175.000 (descuento de $417.000 adhiriendo a débito automático en TC).\n\nI-Cockpit® con volante compacto, panel elevado, Bluetooth y display digital. 6 airbags, columna de dirección deformable y estructura de deformación programada.',
+            },
+            {
+                name: '208 Allure Automático',
+                tag: 'Hatchback · Plan 80% · 84 cuotas',
+                badge: 'MÁS VENDIDO',
+                img: '../img sin fondo/208 allure automatico.png',
+                desc: 'Caja automática, i-Cockpit® completo y el mejor equipamiento del segmento hatchback.',
+                specs: [
+                    { label: 'Valor móvil', val: '$38.250.000' },
+                    { label: 'Plan', val: '80% — 84 cuotas en pesos' },
+                    { label: 'Cuota desde', val: '$364.293 / mes' },
+                    { label: 'Cuota 1 + Sus.', val: '$1.293.000 (–$459.000 c/débito)' },
+                ],
+                lorem: 'Financiá el 80% del vehículo en 84 cuotas sin intereses y en pesos. Cuota 1 + Suscripción: $1.293.000 (descuento de $459.000 adhiriendo a débito automático en TC).\n\nI-Cockpit® con volante reducido, panel elevado, display LCD e indicadores digitales. 6 airbags, columna de dirección deformable y estructura de deformación programada.',
+            },
+            {
+                name: '2008 Active',
+                tag: 'SUV · Plan 70% · 84 cuotas',
+                badge: 'CUOTA MÁS BAJA SUV',
+                img: '../img sin fondo/2008 active.png',
+                desc: 'Motor T200 turbo, CVT 7 marchas, i-Cockpit 3D y la cuota más baja del segmento SUV.',
+                specs: [
+                    { label: 'Valor móvil', val: '$44.740.000' },
+                    { label: 'Plan', val: '70% — 84 cuotas en pesos' },
+                    { label: 'Cuota desde', val: '$425.925 / mes' },
+                    { label: 'Cuota 1 + Sus.', val: '$1.445.000 (–$513.000 c/débito)' },
+                ],
+                lorem: 'Financiá el 70% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.445.000 (descuento de $513.000 adhiriendo a débito automático en TC).\n\nMotor T200: 1.0L turbo, 120CV, 200Nm, caja CVT 7 marchas. Consumo: 8,7 L/100km ciudad / 5,6 autopista. i-Cockpit con cuadro de instrumentos digital 3D y pantalla multimedia de 10".',
+            },
+            {
+                name: '2008 Allure',
+                tag: 'SUV Full · Plan 80% · 84 cuotas',
+                badge: 'FULL ADAS',
+                img: '../img sin fondo/2008 allure.png',
+                desc: 'SUV full equipo con cámara 360°, frenado autónomo, alerta de punto ciego y más.',
+                specs: [
+                    { label: 'Valor móvil', val: '$49.010.000' },
+                    { label: 'Plan', val: '80% — 84 cuotas en pesos' },
+                    { label: 'Cuota desde', val: '$466.575 / mes' },
+                    { label: 'Cuota 1 + Sus.', val: '$1.656.000 (–$588.000 c/débito)' },
+                ],
+                lorem: 'Financiá el 80% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.656.000 (descuento de $588.000 adhiriendo a débito automático en TC).\n\nMotor T200: 1.0L turbo, 120CV, CVT 7 marchas, distribución a cadena. ADAS: frenado autónomo de emergencia, alerta de punto ciego, cámara 360°, sensores delanteros y traseros, mantenimiento de carril y lectura de límite de velocidad.',
+            },
+            {
+                name: 'Partner Confort 1.6',
+                tag: 'Utilitario · Plan 70% · 84 cuotas',
+                badge: 'CUOTA DESDE $318.917',
+                img: '../img sin fondo/partner.png',
+                desc: 'El utilitario más accesible: ISOFIX, ABS, cierre centralizado y dirección regulable.',
+                specs: [
+                    { label: 'Valor móvil', val: '$38.270.000' },
+                    { label: 'Plan', val: '70% — 84 cuotas en pesos' },
+                    { label: 'Cuota desde', val: '$318.917 / mes' },
+                    { label: 'Cuota 1 + Sus.', val: '$1.221.000 (–$433.000 c/débito)' },
+                ],
+                lorem: 'Financiá el 70% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.221.000 (descuento de $433.000 adhiriendo a débito automático en TC).\n\nColumna de dirección regulable en altura, cierre centralizado automático en rodaje y mando a distancia. Seguridad: ABS con repartidor electrónico, doble airbag frontal, faros antiniebla y anclajes ISOFIX en plazas traseras.',
+            },
+            {
+                name: 'Expert L3 HDI 120',
+                tag: 'Furgoneta · Plan 70% · 84 cuotas',
+                badge: 'MÁXIMA CAPACIDAD',
+                img: '../img sin fondo/expert.png',
+                desc: 'Diesel 120CV, 6,1 m³ de carga, 1.450 kg y frenado de urgencia incluido.',
+                specs: [
+                    { label: 'Valor móvil', val: '$57.499.999' },
+                    { label: 'Plan', val: '70% — 84 cuotas en pesos' },
+                    { label: 'Cuota desde', val: '$479.167 / mes' },
+                    { label: 'Cuota 1 + Sus.', val: '$1.834.000 (–$651.000 c/débito)' },
+                ],
+                lorem: 'Financiá el 70% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.834.000 (descuento de $651.000 adhiriendo a débito automático en TC).\n\nMotor 1.5L HDI 120CV diesel, 300Nm de torque, tanque 69L. Capacidad: 6,1 m³ / 1.450 kg. 3 plazas. ABS + repartidor electrónico de frenado + sistema de frenado de urgencia.',
+            },
+        ];
+
+        let current = 0;
+        let cards = [];
+        let dragging = false;
+        let startX = 0, startY = 0, curX = 0;
+        const SWIPE_THRESHOLD = 100;
+
+        const wrap = document.getElementById('stackWrap');
+
+        function buildCards() {
+            wrap.innerHTML = '';
+            cards = [];
+            for (let i = 0; i < MODELS.length; i++) {
+                const m = MODELS[i];
+                const el = document.createElement('div');
+                el.className = 'card';
+                el.innerHTML = `
+        <div class="overlay-yes">LIKE ❤️</div>
+        <div class="overlay-no">NOPE ✕</div>
+        <img class="card-img" src="${m.img}" alt="${m.name}" draggable="false"/>
+        <span class="card-badge">${m.badge}</span>
+        <div class="card-body">
+          <div>
+            <h3>${m.name}</h3>
+            <div class="tag">${m.tag}</div>
+            <div class="desc">${m.desc}</div>
+          </div>
+        </div>`;
+                wrap.appendChild(el);
+                cards.push(el);
+            }
+            positionCards();
+            addDragListeners();
+        }
+
+        function positionCards() {
+            const total = MODELS.length - current;
+            for (let i = current; i < MODELS.length; i++) {
+                const el = cards[i];
+                const depth = i - current;
+                const visible = Math.min(total, 3);
+                if (depth >= visible) {
+                    el.style.cssText = `z-index:${-depth}; transform:translateY(${depth * 15}px) scale(${1 - depth * 0.04}); opacity:0; pointer-events:none;`;
+                } else {
+                    el.style.cssText = `z-index:${10 - depth}; transform:translateY(${depth * 15}px) scale(${1 - depth * 0.04}); opacity:${depth === 0 ? 1 : depth === 1 ? 0.8 : 0.6}; pointer-events:${depth === 0 ? 'all' : 'none'};`;
+                }
+                el.querySelector('.overlay-yes').style.opacity = 0;
+                el.querySelector('.overlay-no').style.opacity = 0;
+            }
+            for (let i = 0; i < current; i++) {
+                cards[i].style.cssText = 'opacity:0; pointer-events:none; z-index:-99;';
+            }
+            const hasCards = current < MODELS.length;
+            document.getElementById('swipeActions').style.display = hasCards ? 'flex' : 'none';
+            document.getElementById('swipeHint').style.display = hasCards ? 'block' : 'none';
+            document.getElementById('endScreen').classList.toggle('visible', !hasCards);
+        }
+
+        function addDragListeners() {
+            cards.forEach((card, idx) => {
+                card.addEventListener('mousedown', e => { if (idx !== current) return; onStart(e.clientX, e.clientY); });
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('mouseup', onEnd);
+                card.addEventListener('touchstart', e => { if (idx !== current) return; const t = e.touches[0]; onStart(t.clientX, t.clientY); }, { passive: true });
+                document.addEventListener('touchmove', e => { const t = e.touches[0]; onMove({ clientX: t.clientX, clientY: t.clientY }); }, { passive: true });
+                document.addEventListener('touchend', onEnd);
+            });
+        }
+
+        function onStart(x, y) { dragging = true; startX = x; startY = y; curX = 0; }
+
+        function onMove(e) {
+            if (!dragging || current >= MODELS.length) return;
+            curX = e.clientX - startX;
+            const rot = curX * 0.08;
+            const topCard = cards[current];
+            topCard.style.transition = 'none';
+            topCard.style.transform = `translateX(${curX}px) rotate(${rot}deg) scale(1)`;
+            const ratio = Math.min(Math.abs(curX) / SWIPE_THRESHOLD, 1);
+            if (curX > 0) {
+                topCard.querySelector('.overlay-yes').style.opacity = ratio;
+                topCard.querySelector('.overlay-no').style.opacity = 0;
+            } else {
+                topCard.querySelector('.overlay-no').style.opacity = ratio;
+                topCard.querySelector('.overlay-yes').style.opacity = 0;
+            }
+        }
+
+        function onEnd() {
+            if (!dragging) return;
+            dragging = false;
+            if (current >= MODELS.length) return;
+            const topCard = cards[current];
+            topCard.style.transition = '';
+            if (curX > SWIPE_THRESHOLD) animateOut('right');
+            else if (curX < -SWIPE_THRESHOLD) animateOut('left');
+            else {
+                topCard.style.transform = `translateY(0) scale(1)`;
+                topCard.querySelector('.overlay-yes').style.opacity = 0;
+                topCard.querySelector('.overlay-no').style.opacity = 0;
+            }
+            curX = 0;
+        }
+
+        function animateOut(dir) {
+            const topCard = cards[current];
+            const tx = dir === 'right' ? 600 : -600;
+            topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            topCard.style.transform = `translateX(${tx}px) rotate(${dir === 'right' ? 25 : -25}deg) scale(0.9)`;
+            topCard.style.opacity = '0';
+
+            if (dir === 'right') {
+                addLikedMessage(MODELS[current].name);
+                if (window.innerWidth <= 900) {
+                    setTimeout(() => {
+                        document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 420);
+                }
+            }
+
+            current++;
+            setTimeout(() => positionCards(), 350);
+        }
+
+        function swipeLeft() { if (current < MODELS.length) animateOut('left'); }
+        function swipeRight() { if (current < MODELS.length) animateOut('right'); }
+
+        function restart() {
+            current = 0;
+            buildCards();
+            document.getElementById('endScreen').classList.remove('visible');
+        }
+
+        function openInfo() {
+            if (current >= MODELS.length) return;
+            const m = MODELS[current];
+            document.getElementById('infoImg').src = m.img;
+            document.getElementById('infoImg').alt = m.name;
+            document.getElementById('infoTag').textContent = m.tag;
+            document.getElementById('infoTitle').textContent = m.name;
+            document.getElementById('infoDesc').textContent = m.lorem;
+            const specsEl = document.getElementById('infoSpecs');
+            specsEl.innerHTML = m.specs.map(s => `
+      <div class="spec-item">
+        <div class="spec-label">${s.label}</div>
+        <div class="spec-val">${s.val}</div>
+      </div>`).join('');
+            document.getElementById('infoOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInfo() {
+            document.getElementById('infoOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeInfoOutside(e) {
+            if (e.target === document.getElementById('infoOverlay')) closeInfo();
+        }
+
+        function addLikedMessage(modelName) {
+            const msgs = document.getElementById('chatMessages');
+            const userBubble = document.createElement('div');
+            userBubble.className = 'msg-bubble liked';
+            userBubble.innerHTML = `❤️ Me interesa el <strong>${modelName}</strong>`;
+            msgs.appendChild(userBubble);
+            msgs.scrollTop = msgs.scrollHeight;
+            sendToN8N(`Me interesa el ${modelName}`);
+        }
+
+        const N8N_WEBHOOK = 'https://bot.tucerofinanciado.com/webhook/54e45968-063d-4dea-b659-881fb15b345b/chat';
+        const SESSION_ID = 'pf-' + Math.random().toString(36).slice(2);
+
+        async function sendToN8N(userText) {
+            const msgs = document.getElementById('chatMessages');
+            const typing = document.createElement('div');
+            typing.className = 'typing-indicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            msgs.appendChild(typing);
+            msgs.scrollTop = msgs.scrollHeight;
+
+            try {
+                const resp = await fetch(N8N_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chatInput: userText, sessionId: SESSION_ID })
+                });
+                const data = await resp.json();
+                typing.remove();
+                const reply = data.output || data.text || data.message || data.response || JSON.stringify(data);
+                const bubble = document.createElement('div');
+                bubble.className = 'msg-bubble';
+                bubble.textContent = reply;
+                msgs.appendChild(bubble);
+            } catch (err) {
+                typing.remove();
+                const bubble = document.createElement('div');
+                bubble.className = 'msg-bubble';
+                bubble.textContent = 'Hubo un problema de conexión. Intentá de nuevo 🙂';
+                msgs.appendChild(bubble);
+            }
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function selectModel(name) {
+            const msgs = document.getElementById('chatMessages');
+            const userBubble = document.createElement('div');
+            userBubble.className = 'msg-bubble liked';
+            userBubble.textContent = `Me interesa el ${name}`;
+            msgs.appendChild(userBubble);
+            msgs.scrollTop = msgs.scrollHeight;
+            sendToN8N(`Me interesa el ${name}`);
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            const msgs = document.getElementById('chatMessages');
+            const bubble = document.createElement('div');
+            bubble.className = 'msg-bubble liked';
+            bubble.textContent = text;
+            msgs.appendChild(bubble);
+            input.value = '';
+            msgs.scrollTop = msgs.scrollHeight;
+            sendToN8N(text);
+        }
+
+        function handleKey(e) { if (e.key === 'Enter') sendMsg(); }
+
+        document.addEventListener('keydown', e => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowLeft') swipeLeft();
+            if (e.key === 'ArrowRight') swipeRight();
+            if (e.key === 'i' || e.key === 'I') openInfo();
+        });
+
+        buildCards();
+        showLourdesGreeting();
+
+        function showLourdesGreeting() {
+            const msgs = document.getElementById('chatMessages');
+            setTimeout(() => {
+                const typing = document.createElement('div');
+                typing.id = 'typingIndicator';
+                typing.className = 'typing-indicator';
+                typing.innerHTML = '<span></span><span></span><span></span>';
+                msgs.appendChild(typing);
+                msgs.scrollTop = msgs.scrollHeight;
+                setTimeout(() => {
+                    typing.remove();
+                    const bubble = document.createElement('div');
+                    bubble.className = 'msg-bubble';
+                    bubble.textContent = 'Hola, soy Lourdes 👋 Estoy en línea para que me consultes lo que quieras.';
+                    msgs.appendChild(bubble);
+                    const time = document.createElement('div');
+                    time.className = 'msg-time';
+                    time.textContent = 'Justo ahora';
+                    msgs.appendChild(time);
+                    msgs.scrollTop = msgs.scrollHeight;
+                }, 2000);
+            }, 800);
+        }
+    </script>
+</body>
+
+</html>
