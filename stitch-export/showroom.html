@@ -150,35 +150,38 @@
 
         /* stack depth offsets (set via JS inline style) */
 
-        /* swipe direction overlays */
-        .card .overlay-yes,
-        .card .overlay-no {
-            position: absolute;
-            top: 24px;
-            padding: 8px 20px;
-            border-radius: 12px;
-            font-size: 1.4rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            border: 4px solid;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.1s;
-            text-transform: uppercase;
+        /* consultar button on card */
+        .consultar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: calc(100% - 32px);
+            margin: 0 16px 16px;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.2px;
+            box-shadow: 0 6px 20px -4px rgba(12, 174, 228, 0.45);
+            transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+            flex-shrink: 0;
         }
-
-        .card .overlay-yes {
-            left: 24px;
-            color: var(--green);
-            border-color: var(--green);
-            transform: rotate(-12deg);
+        .consultar-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 28px -6px rgba(12, 174, 228, 0.55);
         }
-
-        .card .overlay-no {
-            right: 24px;
-            color: var(--red);
-            border-color: var(--red);
-            transform: rotate(12deg);
+        .consultar-btn:active {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+        .consultar-btn .material-symbols-outlined {
+            font-size: 20px;
         }
 
         /* card photo */
@@ -255,8 +258,8 @@
         }
 
         .action-btn {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             border: 2px solid;
             background: var(--white);
@@ -277,40 +280,16 @@
             transform: scale(0.95);
         }
 
-        .btn-nope {
-            border-color: #fecaca;
-            color: var(--red);
-        }
-
-        .btn-nope:hover {
-            background: #fff0f0;
-        }
-
         .btn-info {
             border-color: #bae6fd;
             color: var(--accent);
-            width: 52px;
-            height: 52px;
         }
 
         .btn-info:hover {
             background: #f0faff;
         }
 
-        .btn-like {
-            border-color: #bbf7d0;
-            color: var(--green);
-        }
-
-        .btn-like:hover {
-            background: #f0fff7;
-        }
-
         .action-btn .material-symbols-outlined {
-            font-size: 28px;
-        }
-
-        .btn-info .material-symbols-outlined {
             font-size: 24px;
         }
 
@@ -714,54 +693,6 @@
             color: var(--text);
         }
 
-        /* ── END SCREEN ──────────────────────────────────────────────── */
-        .end-screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 520px;
-            gap: 16px;
-            text-align: center;
-        }
-
-        .end-screen.visible {
-            display: flex;
-        }
-
-        .end-icon {
-            font-size: 4rem;
-        }
-
-        .end-screen h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        .end-screen p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .restart-btn {
-            margin-top: 8px;
-            padding: 12px 28px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 100px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.15s;
-        }
-
-        .restart-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* ── RESPONSIVE ──────────────────────────────────────────────── */
         /* ── TYPING INDICATOR ────────────────────────────────────────── */
         .typing-indicator {
             display: flex;
@@ -792,16 +723,8 @@
         }
 
         @keyframes typingBounce {
-
-            0%,
-            60%,
-            100% {
-                transform: translateY(0);
-            }
-
-            30% {
-                transform: translateY(-6px);
-            }
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
         }
 
         @media (max-width: 900px) {
@@ -810,37 +733,83 @@
                 gap: 32px;
                 padding: 24px 16px 48px;
             }
+            .chat-col { position: static; }
+            .chat-box { height: 560px; }
+        }
 
-            .chat-col {
-                position: static;
+        /* ── WHATSAPP BUBBLE (mobile only) ────────────────────────── */
+        .wa-bubble { display: none; }
+        @media (max-width: 900px) {
+            .wa-bubble {
+                display: flex;
+                position: fixed;
+                bottom: 24px;
+                right: 20px;
+                z-index: 150;
+                align-items: flex-end;
+                gap: 10px;
+                cursor: pointer;
+                animation: waBounceIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+                animation-delay: 3s;
+                opacity: 0;
+                animation-fill-mode: forwards;
             }
-
-            .chat-box {
-                height: 560px;
+            @keyframes waBounceIn {
+                from { opacity: 0; transform: scale(0.5) translateY(30px); }
+                to   { opacity: 1; transform: scale(1) translateY(0); }
             }
+            .wa-callout {
+                background: white;
+                border-radius: 16px 16px 0 16px;
+                padding: 10px 14px;
+                font-size: 0.82rem;
+                font-weight: 600;
+                line-height: 1.4;
+                color: var(--text);
+                box-shadow: 0 8px 28px -6px rgba(0,0,0,0.2);
+                max-width: 180px;
+                position: relative;
+            }
+            .wa-callout::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                right: 12px;
+                border: 6px solid transparent;
+                border-top-color: white;
+                border-right-color: white;
+            }
+            .wa-callout strong {
+                display: block;
+                color: var(--green);
+                margin-bottom: 2px;
+                font-size: 0.88rem;
+            }
+            .wa-icon {
+                width: 58px;
+                height: 58px;
+                border-radius: 50%;
+                background: var(--green);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 6px 20px -4px rgba(37,211,102,0.55);
+                flex-shrink: 0;
+                animation: waPulse 2.5s infinite 3.7s;
+            }
+            @keyframes waPulse {
+                0%,100% { box-shadow: 0 6px 20px -4px rgba(37,211,102,0.55); }
+                50%      { box-shadow: 0 6px 28px 2px rgba(37,211,102,0.5); }
+            }
+            .wa-icon svg { width: 32px; height: 32px; fill: white; }
         }
 
         @media (max-width: 600px) {
-            .stack-wrap {
-                height: 400px;
-                max-width: 100%;
-            }
-
-            .card-img {
-                height: 55%;
-            }
-
-            .card-body h3 {
-                font-size: 1.15rem;
-            }
-
-            .card-body .desc {
-                font-size: 0.78rem;
-            }
-
-            .card-body {
-                padding: 14px 16px 12px;
-            }
+            .stack-wrap { height: 400px; max-width: 100%; }
+            .card-img { height: 55%; }
+            .card-body h3 { font-size: 1.15rem; }
+            .card-body .desc { font-size: 0.78rem; }
+            .card-body { padding: 14px 16px 12px; }
         }
     </style>
 </head>
@@ -868,28 +837,14 @@
                 <!-- Cards injected by JS -->
             </div>
 
-            <!-- END SCREEN (shown when all cards swiped) -->
-            <div class="end-screen" id="endScreen">
-                <div class="end-icon">🎉</div>
-                <h3>¡Viste todos los modelos!</h3>
-                <p>Hablá con Lourdes para encontrar tu Peugeot ideal.</p>
-                <button class="restart-btn" onclick="restart()">Volver a ver modelos</button>
-            </div>
-
             <!-- SWIPE BUTTONS -->
             <div class="swipe-actions" id="swipeActions">
-                <button class="action-btn btn-nope" id="btnNope" onclick="swipeLeft()" title="No me interesa">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
                 <button class="action-btn btn-info" id="btnInfo" onclick="openInfo()" title="Ver información">
                     <span class="material-symbols-outlined">info</span>
                 </button>
-                <button class="action-btn btn-like" id="btnLike" onclick="swipeRight()" title="Me interesa">
-                    <span class="material-symbols-outlined">favorite</span>
-                </button>
             </div>
 
-            <p class="card-hint" id="swipeHint">← Deslizá o usá los botones →</p>
+            <p class="card-hint" id="swipeHint">← Deslizá para ver más modelos →</p>
 
             <!-- FEATURES -->
             <div class="features">
@@ -927,7 +882,6 @@
                             <div class="chat-status">Online ahora</div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Messages -->
@@ -960,8 +914,8 @@
                 <div class="info-desc" id="infoDesc"></div>
                 <div class="info-specs" id="infoSpecs"></div>
                 <div class="info-cta">
-                    <button class="cta-like" onclick="swipeRight(); closeInfo();">
-                        <span style="font-size:1.1em">❤️</span> Me interesa
+                    <button class="cta-like" onclick="consultarDesdeInfo()" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark));">
+                        <span style="font-size:1.1em">💬</span> Consultar este modelo
                     </button>
                     <button class="cta-next" onclick="closeInfo()">
                         Cerrar
@@ -1062,11 +1016,11 @@
 
         /* ─── STATE ─────────────────────────────────────────────────────── */
         let current = 0;
-        let cards = [];  // DOM refs, front-to-back
+        let cards = [];  // DOM refs
         let dragging = false;
         let startX = 0, startY = 0, curX = 0;
         let isHorizontalSwipe = false;
-        const SWIPE_THRESHOLD = 100; // px
+        const SWIPE_THRESHOLD = 100;
 
         /* ─── BUILD CARDS ───────────────────────────────────────────────── */
         const wrap = document.getElementById('stackWrap');
@@ -1079,8 +1033,6 @@
                 const el = document.createElement('div');
                 el.className = 'card';
                 el.innerHTML = `
-        <div class="overlay-yes">LIKE ❤️</div>
-        <div class="overlay-no">NOPE ✕</div>
         <img class="card-img" src="${m.img}" alt="${m.name}" draggable="false"/>
         <span class="card-badge">${m.badge}</span>
         <div class="card-body">
@@ -1089,7 +1041,11 @@
             <div class="tag">${m.tag}</div>
             <div class="desc">${m.desc}</div>
           </div>
-        </div>`;
+        </div>
+        <button class="consultar-btn" onclick="consultarModelo(event, '${m.name}')">
+          <span class="material-symbols-outlined">chat</span>
+          Consultar este modelo
+        </button>`;
                 wrap.appendChild(el);
                 cards.push(el);
             }
@@ -1098,38 +1054,26 @@
         }
 
         function positionCards() {
-            const total = MODELS.length - current;
-            for (let i = current; i < MODELS.length; i++) {
+            const total = cards.length;
+            for (let i = 0; i < total; i++) {
+                const depth = (i - current + total) % total;
                 const el = cards[i];
-                const depth = i - current;        // 0 = top
                 const visible = Math.min(total, 3);
                 if (depth >= visible) {
-                    el.style.cssText = `z-index:${-depth}; transform:translateY(${depth * 15}px) scale(${1 - depth * 0.04}); opacity:0; pointer-events:none;`;
+                    el.style.cssText = `z-index:${-depth}; transform:translateY(${depth * 15}px) scale(${1 - depth * 0.04}); opacity:0; pointer-events:none; transition:transform 0.3s, opacity 0.3s;`;
                 } else {
-                    el.style.cssText = `z-index:${10 - depth}; transform:translateY(${depth * 15}px) scale(${1 - depth * 0.04}); opacity:${depth === 0 ? 1 : depth === 1 ? 0.8 : 0.6}; pointer-events:${depth === 0 ? 'all' : 'none'};`;
+                    el.style.cssText = `z-index:${10 - depth}; transform:translateY(${depth * 15}px) scale(${1 - depth * 0.04}); opacity:${depth === 0 ? 1 : depth === 1 ? 0.8 : 0.6}; pointer-events:${depth === 0 ? 'all' : 'none'}; transition:transform 0.3s, opacity 0.3s;`;
                 }
-                el.querySelector('.overlay-yes').style.opacity = 0;
-                el.querySelector('.overlay-no').style.opacity = 0;
             }
-            // hide old cards
-            for (let i = 0; i < current; i++) {
-                cards[i].style.cssText = 'opacity:0; pointer-events:none; z-index:-99;';
-            }
-
-            const hasCards = current < MODELS.length;
-            document.getElementById('swipeActions').style.display = hasCards ? 'flex' : 'none';
-            document.getElementById('swipeHint').style.display = hasCards ? 'block' : 'none';
-            document.getElementById('endScreen').classList.toggle('visible', !hasCards);
         }
 
         /* ─── DRAG / TOUCH ──────────────────────────────────────────────── */
         function addDragListeners() {
             cards.forEach((card, idx) => {
-                // Mouse
-                card.addEventListener('mousedown', e => { if (idx !== current) return; onStart(e.clientX, e.clientY); });
-                document.addEventListener('mousemove', onMove);
-                document.addEventListener('mouseup', onEnd);
-                // Touch
+                card.addEventListener('mousedown', e => {
+                    if (idx !== current) return;
+                    onStart(e.clientX, e.clientY);
+                });
                 card.addEventListener('touchstart', e => {
                     if (idx !== current) return;
                     const t = e.touches[0];
@@ -1142,7 +1086,6 @@
                     const dx = Math.abs(t.clientX - startX);
                     const dy = Math.abs(t.clientY - startY);
                     if (!isHorizontalSwipe && dy > dx) {
-                        // Vertical scroll intent — release drag
                         dragging = false;
                         return;
                     }
@@ -1152,8 +1095,10 @@
                     }
                     onMove({ clientX: t.clientX, clientY: t.clientY });
                 }, { passive: false });
-                document.addEventListener('touchend', onEnd);
             });
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onEnd);
+            document.addEventListener('touchend', onEnd);
         }
 
         function onStart(x, y) {
@@ -1163,73 +1108,67 @@
         }
 
         function onMove(e) {
-            if (!dragging || current >= MODELS.length) return;
+            if (!dragging) return;
             curX = e.clientX - startX;
             const rot = curX * 0.08;
             const topCard = cards[current];
             topCard.style.transition = 'none';
             topCard.style.transform = `translateX(${curX}px) rotate(${rot}deg) scale(1)`;
-            const ratio = Math.min(Math.abs(curX) / SWIPE_THRESHOLD, 1);
-            if (curX > 0) {
-                topCard.querySelector('.overlay-yes').style.opacity = ratio;
-                topCard.querySelector('.overlay-no').style.opacity = 0;
-            } else {
-                topCard.querySelector('.overlay-no').style.opacity = ratio;
-                topCard.querySelector('.overlay-yes').style.opacity = 0;
-            }
         }
 
         function onEnd() {
             if (!dragging) return;
             dragging = false;
-            if (current >= MODELS.length) return;
             const topCard = cards[current];
             topCard.style.transition = '';
             if (curX > SWIPE_THRESHOLD) animateOut('right');
             else if (curX < -SWIPE_THRESHOLD) animateOut('left');
             else {
                 topCard.style.transform = `translateY(0) scale(1)`;
-                topCard.querySelector('.overlay-yes').style.opacity = 0;
-                topCard.querySelector('.overlay-no').style.opacity = 0;
             }
             curX = 0;
         }
 
-        /* ─── SWIPE LOGIC ───────────────────────────────────────────────── */
+        /* ─── SWIPE LOGIC (infinite loop) ──────────────────────────────── */
         function animateOut(dir) {
             const topCard = cards[current];
             const tx = dir === 'right' ? 600 : -600;
-            topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-            topCard.style.transform = `translateX(${tx}px) rotate(${dir === 'right' ? 25 : -25}deg) scale(0.9)`;
+            topCard.style.transition = 'transform 0.38s ease, opacity 0.38s ease';
+            topCard.style.transform = `translateX(${tx}px) rotate(${dir === 'right' ? 22 : -22}deg) scale(0.9)`;
             topCard.style.opacity = '0';
 
-            if (dir === 'right') {
-                // Like → chat with Lourdes
-                addLikedMessage(MODELS[current].name);
-                // On mobile, scroll down to the chat panel
-                if (window.innerWidth <= 900) {
-                    setTimeout(() => {
-                        document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 420);
-                }
-            }
+            current = (current + 1) % MODELS.length;
 
-            current++;
-            setTimeout(() => positionCards(), 350);
+            setTimeout(() => {
+                topCard.style.transition = 'none';
+                topCard.style.transform = '';
+                topCard.style.opacity = '';
+                positionCards();
+            }, 380);
         }
 
-        function swipeLeft() { if (current < MODELS.length) animateOut('left'); }
-        function swipeRight() { if (current < MODELS.length) animateOut('right'); }
+        function swipeLeft() { animateOut('left'); }
+        function swipeRight() { animateOut('right'); }
 
-        function restart() {
-            current = 0;
-            buildCards();
-            document.getElementById('endScreen').classList.remove('visible');
+        /* ─── CONSULTAR ─────────────────────────────────────────────────── */
+        function consultarModelo(event, modelName) {
+            event.stopPropagation();
+            const msgs = document.getElementById('chatMessages');
+            const userBubble = document.createElement('div');
+            userBubble.className = 'msg-bubble liked';
+            userBubble.innerHTML = `📋 Quiero consultar el <strong>${modelName}</strong>`;
+            msgs.appendChild(userBubble);
+            msgs.scrollTop = msgs.scrollHeight;
+            sendToN8N(`Quiero consultar el ${modelName}`);
+            if (window.innerWidth <= 900) {
+                setTimeout(() => {
+                    document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
         }
 
         /* ─── INFO SHEET ─────────────────────────────────────────────────── */
         function openInfo() {
-            if (current >= MODELS.length) return;
             const m = MODELS[current];
             document.getElementById('infoImg').src = m.img;
             document.getElementById('infoImg').alt = m.name;
@@ -1255,31 +1194,29 @@
             if (e.target === document.getElementById('infoOverlay')) closeInfo();
         }
 
-        /* ─── CHAT ───────────────────────────────────────────────────────── */
-        function addLikedMessage(modelName) {
+        function consultarDesdeInfo() {
+            const m = MODELS[current];
+            closeInfo();
             const msgs = document.getElementById('chatMessages');
-            // User message
             const userBubble = document.createElement('div');
             userBubble.className = 'msg-bubble liked';
-            userBubble.innerHTML = `❤️ Me interesa el <strong>${modelName}</strong>`;
+            userBubble.innerHTML = `💬 Quiero consultar el <strong>${m.name}</strong>`;
             msgs.appendChild(userBubble);
             msgs.scrollTop = msgs.scrollHeight;
-
-            // Lourdes responde via N8N
-            sendToN8N(`Me interesa el ${modelName}`);
+            sendToN8N(`Quiero consultar el ${m.name}`);
+            if (window.innerWidth <= 900) {
+                setTimeout(() => {
+                    document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 350);
+            }
         }
 
-        // ── N8N Chat Trigger URL ─────────────────────────────────────────
-        // Pegá acá la URL del nodo "When chat message received" (producción)
+        /* ─── CHAT ───────────────────────────────────────────────────────── */
         const N8N_WEBHOOK = 'https://bot.tucerofinanciado.com/webhook/54e45968-063d-4dea-b659-881fb15b345b/chat';
-
-        // Sesión única por visita (mantiene historial en N8N)
         const SESSION_ID = 'pf-' + Math.random().toString(36).slice(2);
 
         async function sendToN8N(userText) {
             const msgs = document.getElementById('chatMessages');
-
-            // Typing indicator
             const typing = document.createElement('div');
             typing.className = 'typing-indicator';
             typing.innerHTML = '<span></span><span></span><span></span>';
@@ -1294,7 +1231,6 @@
                 });
                 const data = await resp.json();
                 typing.remove();
-                // Chat Trigger devuelve { output: "..." }
                 const reply = data.output || data.text || data.message || data.response || JSON.stringify(data);
                 const bubble = document.createElement('div');
                 bubble.className = 'msg-bubble';
@@ -1308,16 +1244,6 @@
                 msgs.appendChild(bubble);
             }
             msgs.scrollTop = msgs.scrollHeight;
-        }
-
-        function selectModel(name) {
-            const msgs = document.getElementById('chatMessages');
-            const userBubble = document.createElement('div');
-            userBubble.className = 'msg-bubble liked';
-            userBubble.textContent = `Me interesa el ${name}`;
-            msgs.appendChild(userBubble);
-            msgs.scrollTop = msgs.scrollHeight;
-            sendToN8N(`Me interesa el ${name}`);
         }
 
         function sendMsg() {
@@ -1336,7 +1262,6 @@
 
         function handleKey(e) { if (e.key === 'Enter') sendMsg(); }
 
-        /* ─── KEYBOARD SHORTCUTS ─────────────────────────────────────────── */
         document.addEventListener('keydown', e => {
             if (e.target.tagName === 'INPUT') return;
             if (e.key === 'ArrowLeft') swipeLeft();
@@ -1348,11 +1273,15 @@
         buildCards();
         showLourdesGreeting();
 
-        /* ─── LOURDES GREETING (typing animation) ────────────────────────── */
+        function scrollToChat() {
+            document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const b = document.getElementById('waBubble');
+            if (b) { b.style.opacity = '0'; b.style.pointerEvents = 'none'; }
+        }
+
+        /* ─── LOURDES GREETING ────────────────────────────────────────── */
         function showLourdesGreeting() {
             const msgs = document.getElementById('chatMessages');
-
-            // Show typing indicator after 800ms
             setTimeout(() => {
                 const typing = document.createElement('div');
                 typing.id = 'typingIndicator';
@@ -1360,8 +1289,6 @@
                 typing.innerHTML = '<span></span><span></span><span></span>';
                 msgs.appendChild(typing);
                 msgs.scrollTop = msgs.scrollHeight;
-
-                // After 2s, replace typing with greeting
                 setTimeout(() => {
                     typing.remove();
                     const bubble = document.createElement('div');
@@ -1377,6 +1304,20 @@
             }, 800);
         }
     </script>
+
+    <!-- WHATSAPP BUBBLE (mobile) -->
+    <div class="wa-bubble" id="waBubble" onclick="scrollToChat()">
+        <div class="wa-callout">
+            <strong>Lourdes 🟢</strong>
+            Hola, soy Lourdes, estoy en línea para ayudarte
+        </div>
+        <div class="wa-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12.004 2C6.477 2 2 6.477 2 12.004c0 1.773.46 3.437 1.265 4.888L2 22l5.236-1.242A9.954 9.954 0 0 0 12.004 22C17.523 22 22 17.523 22 12.004 22 6.477 17.523 2 12.004 2zm0 18.174a8.157 8.157 0 0 1-4.157-1.138l-.298-.176-3.103.735.78-3.032-.194-.31A8.17 8.17 0 0 1 3.826 12c0-4.51 3.668-8.17 8.178-8.17 4.51 0 8.17 3.66 8.17 8.17 0 4.51-3.66 8.174-8.17 8.174z"/>
+            </svg>
+        </div>
+    </div>
 </body>
 
 </html>
