@@ -242,12 +242,11 @@
         .card-img {
             height: 200px;
             width: 100%;
-            object-fit: contain;
-            object-position: center bottom;
+            object-fit: cover;
+            object-position: center;
             display: block;
             background: var(--bg);
             flex-shrink: 0;
-            padding: 8px 8px 0;
         }
 
         /* skeleton loader for image */
@@ -798,236 +797,229 @@
 
         .info-cta {
             display: flex;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .info-cta button {
-            flex: 1;
-            padding: 14px;
-            border-radius: 14px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: calc(100% - 56px);
+            margin: 32px auto 0;
+            padding: 16px;
+            border-radius: 16px;
             border: none;
-            font-family: inherit;
-            font-size: 0.88rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.15s, opacity 0.15s;
+            box-shadow: 0 8px 24px -6px rgba(12, 174, 228, 0.5);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
         }
 
-        .info-cta button:hover {
-            opacity: 0.88;
-            transform: scale(1.02);
+        .info-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -8px rgba(12, 174, 228, 0.6);
         }
 
-        .cta-like {
-            background: var(--green);
-            color: white;
-        }
-
-        .cta-next {
-            background: #f1f5f9;
-            color: var(--text);
-        }
-
-        /* ── TYPING INDICATOR ────────────────────────────────────────── */
-        .typing-indicator {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: white;
-            padding: 14px 18px;
-            border-radius: 4px 16px 16px 16px;
-            width: fit-content;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background: #94a3b8;
-            border-radius: 50%;
-            display: inline-block;
-            animation: typingBounce 1.2s infinite ease-in-out;
-        }
-
-        .typing-indicator span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-indicator span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typingBounce {
-
-            0%,
-            60%,
-            100% {
-                transform: translateY(0);
-            }
-
-            30% {
-                transform: translateY(-6px);
-            }
+        .info-cta:active {
+            transform: translateY(0);
         }
 
         /* ── FOOTER ──────────────────────────────────────────────────── */
         footer {
             background: var(--white);
             border-top: 1px solid var(--border);
-            padding: 28px 24px;
-            padding-bottom: max(28px, calc(env(safe-area-inset-bottom) + 12px));
-            text-align: center;
+            padding: 40px 24px 20px;
+            margin-top: auto;
         }
 
-        .footer-inner {
+        .footer-content {
             max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            max-width: 340px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .footer-legal-text {
+            color: var(--muted);
+            font-size: 0.65rem;
+            line-height: 1.5;
+            max-width: 800px;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .footer-links {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            gap: 24px;
         }
 
-        .footer-logo {
-            font-size: 1rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.3px;
-        }
-
-        .footer-logo span {
-            font-weight: 300;
-            color: var(--muted);
-        }
-
-        .footer-legal {
-            font-size: 0.75rem;
-            color: var(--muted);
-            line-height: 1.7;
-            max-width: 640px;
-        }
-
-        .footer-wa {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--green);
-            color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 13px 24px;
-            border-radius: 100px;
+        .footer-links a {
+            color: var(--text);
             text-decoration: none;
-            transition: opacity 0.15s, transform 0.15s;
-            margin-top: 4px;
-            min-height: 48px;
-            touch-action: manipulation;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.15s;
         }
 
-        .footer-wa:hover {
-            opacity: 0.9;
-            transform: scale(1.03);
+        .footer-links a:hover {
+            color: var(--accent);
         }
 
-        .footer-wa .material-symbols-outlined {
-            font-size: 18px;
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--muted);
         }
 
-        /* ── RESPONSIVE ──────────────────────────────────────────────── */
-        @media (max-width: 900px) {
+
+        /* ── RESPONSIVE ─────────── */
+        /* Tablet */
+        @media (max-width: 1024px) {
             main {
                 grid-template-columns: 1fr;
-                gap: 32px;
-                padding: 24px 16px 48px;
+                gap: 56px;
             }
 
             .chat-col {
                 position: static;
+                order: -1;
             }
 
             .chat-box {
-                /* Use viewport height so keyboard doesn't push layout off-screen */
-                height: min(560px, 60dvh);
+                height: 520px;
             }
 
-            .features {
-                /* 2 columns on tablet — more breathing room */
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
         }
 
-        @media (max-width: 600px) {
-            .models-grid {
-                grid-template-columns: 1fr;
+        /* Mobile */
+        @media (max-width: 768px) {
+            main {
+                padding: 24px 16px 40px;
+                gap: 40px;
             }
 
-            header {
-                padding: 0 16px;
+            .headline h1 {
+                font-size: 2.1rem;
+            }
+
+            /* Swipeable Cards on Mobile */
+            .models-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 24px;
+                margin-left: -16px;
+                margin-right: -16px;
+                padding-left: 16px;
+                padding-right: 16px;
+                -webkit-overflow-scrolling: touch;
+                gap: 16px;
+                /* Remove scrollbar */
+                scrollbar-width: none;
+            }
+
+            .models-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .card {
+                scroll-snap-align: start;
+                /* Ensure vertical scrolling works by touch-action pan-y */
+                touch-action: pan-y pinch-zoom;
+                min-width: 280px;
+                max-width: 85vw;
+                flex: 0 0 auto;
             }
 
             .card-img {
                 height: 180px;
             }
 
-            .card-body h3 {
-                font-size: 1.15rem;
-            }
-
-            .card-price-amount {
-                font-size: 1.18rem;
-            }
-
-            .card-body .desc {
-                font-size: 0.8rem;
-            }
-
-            .card-body {
-                padding: 14px 16px 12px;
-            }
-
-            .card-badge {
-                font-size: 0.68rem;
-                padding: 4px 10px;
-            }
-
             .features {
-                /* Still 2 cols on small phones — legible & not cramped */
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 24px;
+            }
+
+            .feat {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .chat-box {
+                height: 480px;
+                border-radius: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 12px;
-                margin-top: 28px;
             }
+        }
 
-            .feat-title {
-                font-size: 0.82rem;
-            }
+        /* ── FLOATING WHATSAPP BUTTON ───────────────────────────────── */
+        .floating-wa-btn {
+            position: fixed;
+            bottom: -80px;
+            /* Initially hidden */
+            right: 24px;
+            z-index: 150;
+            background: var(--green);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px -5px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            transition: transform 0.25s, bottom 0.4s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s;
+            text-decoration: none;
+        }
 
-            .feat-sub {
-                font-size: 0.74rem;
-            }
+        .floating-wa-btn.visible {
+            bottom: 24px;
+        }
 
-            /* Bigger tap targets for action buttons */
-            .consultar-btn,
-            .info-btn {
-                padding: 15px 12px;
-                font-size: 0.92rem;
-            }
+        .floating-wa-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px -5px rgba(37, 211, 102, 0.5);
+        }
 
-            /* Chat input safe area for iOS keyboard */
-            .chat-input-area {
-                padding-bottom: max(12px, env(safe-area-inset-bottom));
-            }
+        .floating-wa-btn .material-symbols-outlined {
+            font-size: 22px;
+        }
 
-            /* Footer on small phones */
-            .footer-legal {
-                font-size: 0.72rem;
-            }
-
-            .footer-wa {
-                width: 100%;
-                justify-content: center;
-                font-size: 0.95rem;
+        /* Hide FAB on desktop if there's already a chat widget, or adjust based on preference */
+        @media (min-width: 1025px) {
+            .floating-wa-btn {
+                display: none;
             }
         }
     </style>
@@ -1035,455 +1027,423 @@
 
 <body>
 
-    <!-- HEADER -->
     <header>
         <div class="logo">
-            <span class="logo-icon" style="font-size:2rem;line-height:1;">🦁</span>
-            <span class="logo-text">Peugeot <span>Finance</span></span>
+            <svg class="logo-icon" viewBox="0 0 24 24">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H8l4-7v4h3l-4 7z" />
+            </svg>
+            <div class="logo-text">PEUGEOT <span>FINANCE</span></div>
         </div>
+        <!-- (Optional: mobile menu trigger here) -->
     </header>
 
     <main>
-        <!-- ── LEFT: MODELS GRID ── -->
+        <!-- LEFT COL -->
         <div class="left-col">
             <div class="headline">
-                <h1>Elegí tu próximo <span>Peugeot</span></h1>
-                <p>Todos nuestros modelos con financiación exclusiva.</p>
+                <h1>Tu próximo Peugeot<br>0km está veloz. <span>Acá.</span></h1>
+                <p>Elegí tu modelo, simulá tu cuota y recibí asesoramiento en minutos.</p>
             </div>
 
             <!-- MODELS GRID -->
             <div class="models-grid" id="modelsGrid">
-                <!-- Cards injected by JS -->
+                <!-- Cars will be injected here via JS -->
             </div>
 
-            <!-- FEATURES -->
             <div class="features">
                 <div class="feat">
-                    <div class="feat-icon"><span class="material-symbols-outlined">verified_user</span></div>
-                    <div class="feat-title">Sin letra chica</div>
-                    <div class="feat-sub">Transparencia total</div>
+                    <div class="feat-icon"><span class="material-symbols-outlined">payments</span></div>
+                    <div>
+                        <div class="feat-title">Cuotas en Pesos</div>
+                        <div class="feat-sub">Plan nacional</div>
+                    </div>
                 </div>
                 <div class="feat">
-                    <div class="feat-icon"><span class="material-symbols-outlined">local_shipping</span></div>
-                    <div class="feat-title">Entrega pactada</div>
-                    <div class="feat-sub">Stock real en mano</div>
+                    <div class="feat-icon"><span class="material-symbols-outlined">directions_car</span></div>
+                    <div>
+                        <div class="feat-title">Llave por llave</div>
+                        <div class="feat-sub">Tomamos tu usado</div>
+                    </div>
                 </div>
                 <div class="feat">
-                    <div class="feat-icon"><span class="material-symbols-outlined">handshake</span></div>
-                    <div class="feat-title">Tomamos tu usado</div>
-                    <div class="feat-sub">Mejor cotización</div>
+                    <div class="feat-icon"><span class="material-symbols-outlined">bolt</span></div>
+                    <div>
+                        <div class="feat-title">Entrega pactada</div>
+                        <div class="feat-sub">Desde cuota 2</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ── RIGHT: CHAT ── -->
-        <div class="chat-col">
+        <!-- RIGHT COL (CHAT) -->
+        <aside class="chat-col">
             <div class="chat-box">
-                <!-- Chat header -->
                 <div class="chat-header">
                     <div class="chat-avatar-wrap">
                         <div class="chat-avatar">
-                            <img src="https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/foto%20lourdes/Gemini_Generated_Image_4vffn34vffn34vff.png"
-                                alt="Lourdes, asesora Peugeot Finance" />
+                            <img src="https://i.pravatar.cc/150?u=lourdes" loading="lazy" alt="Lourdes">
                             <div class="online-dot"></div>
                         </div>
                         <div>
-                            <div class="chat-name">Lourdes</div>
-                            <div class="chat-status">Online ahora</div>
+                            <div class="chat-name">Lourdes — Peugeot</div>
+                            <div class="chat-status">En línea ahora</div>
+                        </div>
+                    </div>
+                    <!-- (Optional: call icon or menu) -->
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="msg-bubble">
+                        ¡Hola! ¿Cómo estás? Soy Lourdes de Peugeot Finance Arg 🦁
+                    </div>
+                    <div class="msg-bubble">
+                        ¡Tenemos una campaña especial y en cuotas exclusivas para retiros programados!
+                    </div>
+                    <div class="msg-bubble">
+                        ¿Qué modelo de la línea Peugeot estás buscando?
+                        <div class="model-chips">
+                            <div class="chip" onclick="fillInput('208 Allure')">208 Allure</div>
+                            <div class="chip" onclick="fillInput('2008 Feline')">2008 Feline</div>
+                            <div class="chip" onclick="fillInput('Partner')">Partner</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Messages -->
-                <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"
-                    aria-label="Conversación con Lourdes">
-                    <!-- messages appended by JS -->
-                </div>
-
-                <!-- Input -->
                 <div class="chat-input-area">
-                    <div class="input-row" id="inputRow">
-                        <input type="text" id="chatInput" placeholder="Escribí tu mensaje..."
-                            aria-label="Escribí un mensaje para Lourdes" onkeydown="handleKey(event)" />
-                        <button class="send-btn" onclick="sendMsg()" aria-label="Enviar mensaje">
+                    <div class="input-row" id="inputWrapper">
+                        <input type="text" id="chatInput" placeholder="Escribí un mensaje..."
+                            onkeypress="handleKeyPress(event)" autocomplete="off">
+                        <button class="send-btn" onclick="sendMessage()" aria-label="Enviar mensaje">
                             <span class="material-symbols-outlined">send</span>
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
     </main>
 
-    <!-- ── INFO BOTTOM SHEET ── -->
-    <div class="info-overlay" id="infoOverlay" role="dialog" aria-modal="true" aria-labelledby="infoTitle"
-        onclick="closeInfoOutside(event)">
-        <div class="info-sheet" id="infoSheet">
-            <div class="info-handle-row">
-                <div class="info-handle"></div>
-                <button class="info-close-btn" onclick="closeInfo()" aria-label="Cerrar ficha del modelo">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <img id="infoImg" class="info-img" alt="" src="" />
-            <div class="info-content">
-                <div class="info-model-tag" id="infoTag"></div>
-                <div class="info-title" id="infoTitle"></div>
-                <div class="info-desc" id="infoDesc"></div>
-                <div class="info-specs" id="infoSpecs"></div>
-                <div class="info-cta">
-                    <button class="cta-like" onclick="consultarDesdeInfo()"
-                        style="background:linear-gradient(135deg,var(--accent),var(--accent-dark));">
-                        <span style="font-size:1.1em">💬</span> Consultar este modelo
-                    </button>
-                    <button class="cta-next" onclick="closeInfo()">
-                        Cerrar
-                    </button>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H8l4-7v4h3l-4 7z" />
+                    </svg>
+                    <div class="logo-text">PEUGEOT <span>FINANCE</span></div>
+                </div>
+                <p>Tu Peugeot 100% financiado de forma segura y transparente.</p>
+                <div class="footer-legal-text">
+                    La presente simulación no constituye oferta. Los valores informados son de carácter estimativo...
+                    Consultá bases y condiciones en el concesionario.
                 </div>
             </div>
+            <div class="footer-links">
+                <a href="#modelsGrid">Modelos</a>
+                <a href="#">Legales</a>
+                <a href="#">Privacidad</a>
+            </div>
         </div>
-    </div>
-
-    <!-- ── FOOTER ── -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-logo">Peugeot <span>Finance</span></div>
-            <p class="footer-legal">
-                Valores y cuotas sujetos a aprobación crediticia y variaciones del índice de ajuste del plan de ahorro.
-                Las cuotas son orientativas al momento de publicación. Consulte condiciones vigentes con un asesor.
-                Peugeot Finance es un servicio de financiación comercial ofrecido por la concesionaria.
-            </p>
-            <a class="footer-wa"
-                href="https://wa.me/5491166669859?text=Hola%2C%20quiero%20consultar%20sobre%20Peugeot%20Finance"
-                target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
-                <span class="material-symbols-outlined">chat</span>
-                Consultanos por WhatsApp
-            </a>
+        <div class="footer-bottom">
+            <div>&copy; 2024 Peugeot Finance Argentina.</div>
         </div>
     </footer>
 
-    <script>
-        /* ─── HELPERS ─────────────────────────────────────────────────────── */
-        const fmt = (n) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(n);
+    <!-- INFO MODAL -->
+    <div class="info-overlay" id="infoOverlay">
+        <div class="info-sheet" id="infoSheet">
+            <div class="info-handle-row">
+                <div class="info-handle"></div>
+                <button class="info-close-btn" onclick="closeInfo()" aria-label="Cerrar modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <img src="" id="infoImage" class="info-img" alt="Auto">
+            <div class="info-content">
+                <div class="info-model-tag" id="infoTag"></div>
+                <h2 class="info-title" id="infoTitle"></h2>
+                <div class="info-desc" id="infoDesc"></div>
 
-        /* ─── DATA ─────────────────────────────────────────────────────── */
-        const MODELS = [
+                <div class="info-specs" id="infoSpecs">
+                    <!-- specs injected JS -->
+                </div>
+            </div>
+
+            <button class="info-cta" onclick="consultFromModal()">
+                <span class="material-symbols-outlined">chat</span>
+                Consultar por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- FLOATING WHATSAPP BUTTON (Mobile) -->
+    <a href="https://wa.me/5491166669859" target="_blank" class="floating-wa-btn" id="fab">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.488-1.761-1.663-2.06-.174-.298-.019-.459.13-.607.135-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.575-.087 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.98 1.001-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.001 5.45-4.437 9.887-9.888 9.887m8.413-18.297A11.815 11.815 0 0012.052 0C5.495 0 .16 5.335.158 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        <span>Chatear</span>
+    </a>
+
+    <script>
+        const WA_LINK = "https://wa.me/5491166669859"; // Replace with your number!
+
+        const CATA = [
             {
-                name: '208 Allure Manual',
-                tag: 'Hatchback · Plan 80% · 84 cuotas',
-                badge: 'DESDE $344.578/mes',
-                cuota: 344578,
-                img: 'https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/img%20sin%20fondo/208%20allure%20manual.png',
-                desc: 'Hatchback con i-Cockpit®, 6 airbags y la cuota más baja de la línea 208.',
-                specs: [
-                    { label: 'Valor móvil', val: '$36.370.000' },
-                    { label: 'Plan', val: '80% — 84 cuotas en pesos' },
-                    { label: 'Cuota desde', val: '$344.578 / mes' },
-                    { label: 'Cuota 1 + Sus.', val: '$1.175.000 (–$417.000 c/débito)' },
-                ],
-                lorem: 'Financiá el 80% del vehículo en 84 cuotas sin intereses y en pesos. Cuota 1 + Suscripción: $1.175.000 (descuento de $417.000 adhiriendo a débito automático en TC).\n\nI-Cockpit® con volante compacto, panel elevado, Bluetooth y display digital. 6 airbags, columna de dirección deformable y estructura de deformación programada.',
+                id: '208',
+                badge: 'Más Vendido 🏆',
+                title: 'Peugeot 208',
+                tag: 'Allure / Active',
+                priceLabel: 'Cuotas desde',
+                priceAmount: '$210.000',
+                desc: 'Combinación perfecta de diseño deportivo y confort urbano. Consultá por disponibilidad y colores de la línea Active y Allure.',
+                img: 'https://i.ibb.co/6P2T96S/2083.png',
+                specs: { Motor: '1.6 VTi 115cv', Baúl: '311 Litros', Pantalla: '10" táctil', Seguridad: '4 Airbags' }
             },
             {
-                name: '208 Allure Automático',
-                tag: 'Hatchback · Plan 80% · 84 cuotas',
-                badge: 'MÁS VENDIDO',
-                cuota: 364293,
-                img: 'https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/img%20sin%20fondo/208%20allure%20automatico.png',
-                desc: 'Caja automática, i-Cockpit® completo y el mejor equipamiento del segmento hatchback.',
-                specs: [
-                    { label: 'Valor móvil', val: '$38.250.000' },
-                    { label: 'Plan', val: '80% — 84 cuotas en pesos' },
-                    { label: 'Cuota desde', val: '$364.293 / mes' },
-                    { label: 'Cuota 1 + Sus.', val: '$1.293.000 (–$459.000 c/débito)' },
-                ],
-                lorem: 'Financiá el 80% del vehículo en 84 cuotas sin intereses y en pesos. Cuota 1 + Suscripción: $1.293.000 (descuento de $459.000 adhiriendo a débito automático en TC).\n\nI-Cockpit® con volante reducido, panel elevado, display LCD e indicadores digitales. 6 airbags, columna de dirección deformable y estructura de deformación programada.',
+                id: '2008',
+                badge: 'Lanzamiento 🚀',
+                title: 'Nuevo 2008',
+                tag: 'Feline / GT',
+                priceLabel: 'Cuotas desde',
+                priceAmount: '$285.000',
+                desc: 'El SUV más tecnológico de su categoría. Un diseño agresivo y líneas dinámicas para una experiencia de manejo superior.',
+                img: 'https://i.ibb.co/VmmcxGz/suv.png',
+                specs: { Motor: '1.6 THP 165cv', Llantas: '17" Diamantadas', Faros: 'Full LED 3D', Seguridad: 'ADAS' }
             },
             {
-                name: '2008 Active',
-                tag: 'SUV · Plan 70% · 84 cuotas',
-                badge: 'CUOTA MÁS BAJA SUV',
-                cuota: 425925,
-                img: 'https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/img%20sin%20fondo/2008%20active.png',
-                desc: 'Motor T200 turbo, CVT 7 marchas, i-Cockpit 3D y la cuota más baja del segmento SUV.',
-                specs: [
-                    { label: 'Valor móvil', val: '$44.740.000' },
-                    { label: 'Plan', val: '70% — 84 cuotas en pesos' },
-                    { label: 'Cuota desde', val: '$425.925 / mes' },
-                    { label: 'Cuota 1 + Sus.', val: '$1.445.000 (–$513.000 c/débito)' },
-                ],
-                lorem: 'Financiá el 70% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.445.000 (descuento de $513.000 adhiriendo a débito automático en TC).\n\nMotor T200: 1.0L turbo, 120CV, 200Nm, caja CVT 7 marchas. Consumo: 8,7 L/100km ciudad / 5,6 autopista. i-Cockpit con cuadro de instrumentos digital 3D y pantalla multimedia de 10".',
+                id: 'partner',
+                badge: 'Trabajo 🛠',
+                title: 'Partner Patagónica',
+                tag: 'Confort',
+                priceLabel: 'Cuotas desde',
+                priceAmount: '$245.000',
+                desc: 'Capacidad, robustez y economía para impulsar tu negocio. Entrega asegurada ideal para flotas comerciales.',
+                img: 'https://i.ibb.co/bW0R5Z2/partner.png',
+                specs: { Carga: '800 kg', Motor: '1.6 HDI 92cv', Consumo: 'Muy bajo', Espacio: '3m³' }
             },
             {
-                name: '2008 Allure',
-                tag: 'SUV Full · Plan 80% · 84 cuotas',
-                badge: 'FULL ADAS',
-                cuota: 466575,
-                img: 'https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/img%20sin%20fondo/2008%20allure.png',
-                desc: 'SUV full equipo con cámara 360°, frenado autónomo, alerta de punto ciego y más.',
-                specs: [
-                    { label: 'Valor móvil', val: '$49.010.000' },
-                    { label: 'Plan', val: '80% — 84 cuotas en pesos' },
-                    { label: 'Cuota desde', val: '$466.575 / mes' },
-                    { label: 'Cuota 1 + Sus.', val: '$1.656.000 (–$588.000 c/débito)' },
-                ],
-                lorem: 'Financiá el 80% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.656.000 (descuento de $588.000 adhiriendo a débito automático en TC).\n\nMotor T200: 1.0L turbo, 120CV, CVT 7 marchas. ADAS: frenado autónomo de emergencia, alerta de punto ciego, cámara 360°, sensores delanteros y traseros, mantenimiento de carril y lectura de límite de velocidad.',
-            },
-            {
-                name: 'Partner Confort 1.6',
-                tag: 'Utilitario · Plan 70% · 84 cuotas',
-                badge: 'CUOTA DESDE $318.917',
-                cuota: 318917,
-                img: 'https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/img%20sin%20fondo/partner.png',
-                desc: 'El utilitario más accesible: ISOFIX, ABS, cierre centralizado y dirección regulable.',
-                specs: [
-                    { label: 'Valor móvil', val: '$38.270.000' },
-                    { label: 'Plan', val: '70% — 84 cuotas en pesos' },
-                    { label: 'Cuota desde', val: '$318.917 / mes' },
-                    { label: 'Cuota 1 + Sus.', val: '$1.221.000 (–$433.000 c/débito)' },
-                ],
-                lorem: 'Financiá el 70% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.221.000 (descuento de $433.000 adhiriendo a débito automático en TC).\n\nColumna de dirección regulable en altura, cierre centralizado automático en rodaje y mando a distancia. Seguridad: ABS con repartidor electrónico, doble airbag frontal, faros antiniebla y anclajes ISOFIX en plazas traseras.',
-            },
-            {
-                name: 'Expert L3 HDI 120',
-                tag: 'Furgoneta · Plan 70% · 84 cuotas',
-                badge: 'MÁXIMA CAPACIDAD',
-                cuota: 479167,
-                img: 'https://raw.githubusercontent.com/tomassperanza/peugeotfinance/main/img%20sin%20fondo/expert.png',
-                desc: 'Diesel 120CV, 6,1 m³ de carga, 1.450 kg y frenado de urgencia incluido.',
-                specs: [
-                    { label: 'Valor móvil', val: '$57.499.999' },
-                    { label: 'Plan', val: '70% — 84 cuotas en pesos' },
-                    { label: 'Cuota desde', val: '$479.167 / mes' },
-                    { label: 'Cuota 1 + Sus.', val: '$1.834.000 (–$651.000 c/débito)' },
-                ],
-                lorem: 'Financiá el 70% del vehículo en 84 cuotas precancelables. Cuota 1 + Suscripción: $1.834.000 (descuento de $651.000 adhiriendo a débito automático en TC).\n\nMotor 1.5L HDI 120CV diesel, 300Nm de torque, tanque 69L. Capacidad: 6,1 m³ / 1.450 kg. 3 plazas. ABS + repartidor electrónico de frenado + sistema de frenado de urgencia.',
-            },
+                id: 'expert',
+                badge: 'Expertos',
+                title: 'Expert',
+                tag: 'Furgón',
+                priceLabel: 'Cuotas desde',
+                priceAmount: '$315.000',
+                desc: 'La evolución del utilitario moderno. Eficiencia térmica, máxima capacidad de volumen y tecnología.',
+                img: 'https://i.ibb.co/SdnL1N7/expert.png',
+                specs: { Carga: '1400 kg', Volumen: '6.1m³', Motor: '1.6 HDI 115cv', Puertas: 'Doble Lateral' }
+            }
         ];
 
-        /* ─── STATE ─────────────────────────────────────────────────────── */
-        let current = 0;
-
-        /* ─── PRICE FORMATTER ────────────────────────────────────────────── */
-        function formatPrice(n) {
-            return new Intl.NumberFormat('es-AR').format(n);
-        }
-
-        /* ─── BUILD GRID ─────────────────────────────────────────────────── */
+        // 1. Render Cards
         const grid = document.getElementById('modelsGrid');
+        let html = '';
 
-        function buildCards() {
-            grid.innerHTML = '';
-            for (let i = 0; i < MODELS.length; i++) {
-                const m = MODELS[i];
-                const el = document.createElement('div');
-                el.className = 'card';
-                el.innerHTML = `
-        <div class="card-img-wrap">
-          <img class="card-img" src="${m.img}" alt="${m.name} — Peugeot 0km financiado" draggable="false"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="card-img-skeleton" style="display:none; align-items:center; justify-content:center; color:#94a3b8; font-size:0.8rem; font-weight:600;">
-            <span>${m.name}</span>
-          </div>
-          <span class="card-badge">${m.badge}</span>
-        </div>
-        <div class="card-body">
-          <div>
-            <h3>${m.name}</h3>
-            <div class="tag">${m.tag}</div>
-            <div class="card-price">
-              <span class="card-price-amount">$${formatPrice(m.cuota)}</span>
-              <span class="card-price-label">/ mes</span>
-            </div>
-            <div class="desc">${m.desc}</div>
-          </div>
-        </div>
-        <div class="card-actions">
-          <button class="info-btn" onclick="openInfo(${i})" aria-label="Ver más información sobre el ${m.name}">
-            <span class="material-symbols-outlined">info</span>
-            Ver más
-          </button>
-          <button class="consultar-btn" onclick="consultarModelo(event, '${m.name}', ${i})" aria-label="Consultar el ${m.name}">
-            <span class="material-symbols-outlined">chat</span>
-            Consultar
-          </button>
-        </div>`;
-                grid.appendChild(el);
+        CATA.forEach(car => {
+            html += `
+                <div class="card">
+                    <div class="card-img-wrap">
+                        <div class="card-badge">${car.badge}</div>
+                        <!-- skeleton -->
+                        <div class="card-img-skeleton" id="skel-${car.id}" style="display:block;"></div>
+                        <!-- actual img -->
+                        <img src="${car.img}" alt="${car.title}" class="card-img" id="img-${car.id}" style="display:none;" />
+                    </div>
+
+                    <div class="card-body">
+                        <div class="tag">${car.tag}</div>
+                        <h3>${car.title}</h3>
+
+                        <div class="card-price">
+                            <span class="card-price-label">${car.priceLabel}</span>
+                            <span class="card-price-amount">${car.priceAmount}</span>
+                        </div>
+
+                        <div class="desc">${car.desc.substring(0, 75)}...</div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="consultar-btn" onclick="openWhatsApp('${car.title}')">
+                            <span class="material-symbols-outlined">chat</span>
+                            Consultar
+                        </button>
+                        <button class="info-btn" onclick="openInfo('${car.id}')" aria-label="Ver más">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+        grid.innerHTML = html;
+
+        // Image loading logic
+        CATA.forEach(car => {
+            const imgEl = document.getElementById(`img-${car.id}`);
+            const skelEl = document.getElementById(`skel-${car.id}`);
+
+            if (imgEl.complete) {
+                skelEl.style.display = 'none';
+                imgEl.style.display = 'block';
+            } else {
+                imgEl.onload = () => {
+                    skelEl.style.display = 'none';
+                    imgEl.style.display = 'block';
+                };
+            }
+        });
+
+        // 2. Chat Logic
+        const chatInput = document.getElementById('chatInput');
+        const inputWrapper = document.getElementById('inputWrapper');
+        const chatMessages = document.getElementById('chatMessages');
+
+        function fillInput(text) {
+            chatInput.value = `Hola, quiero info sobre el ${text}`;
+            chatInput.focus();
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
             }
         }
 
-        /* ─── CONSULTAR ─────────────────────────────────────────────────── */
-        function consultarModelo(event, modelName, idx) {
-            event.stopPropagation();
-            current = idx !== undefined ? idx : 0;
-            const msgs = document.getElementById('chatMessages');
-            const userBubble = document.createElement('div');
-            userBubble.className = 'msg-bubble liked';
-            userBubble.innerHTML = `📋 Quiero consultar el <strong>${modelName}</strong>`;
-            msgs.appendChild(userBubble);
-            msgs.scrollTop = msgs.scrollHeight;
-            sendToN8N(`Quiero consultar el ${modelName}`);
-            // On mobile, scroll to chat
-            if (window.innerWidth <= 900) {
-                setTimeout(() => {
-                    document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 300);
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) {
+                inputWrapper.classList.add('shake');
+                setTimeout(() => inputWrapper.classList.remove('shake'), 400);
+                return;
             }
+
+            // Append user msg
+            const el = document.createElement('div');
+            el.className = 'msg-bubble liked';
+            el.innerHTML = `${text} <div class="msg-time">Ahora</div>`;
+            chatMessages.appendChild(el);
+            chatInput.value = '';
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Wait 1.5s then redirect to WhatsApp
+            setTimeout(() => {
+                const waUrl = `${WA_LINK}?text=${encodeURIComponent(text + " - Vengo de la web.")}`;
+                window.open(waUrl, '_blank');
+            }, 1500);
         }
 
-        /* ─── INFO SHEET ─────────────────────────────────────────────────── */
-        function openInfo(idx) {
-            const modelIdx = idx !== undefined ? idx : current;
-            if (modelIdx >= MODELS.length) return;
-            current = modelIdx;
-            const m = MODELS[current];
-            document.getElementById('infoImg').src = m.img;
-            document.getElementById('infoImg').alt = `${m.name} — Peugeot Finance`;
-            document.getElementById('infoTag').textContent = m.tag;
-            document.getElementById('infoTitle').textContent = m.name;
-            document.getElementById('infoDesc').textContent = m.lorem;
-            const specsEl = document.getElementById('infoSpecs');
-            specsEl.innerHTML = m.specs.map(s => `
-      <div class="spec-item">
-        <div class="spec-label">${s.label}</div>
-        <div class="spec-val">${s.val}</div>
-      </div>`).join('');
-            document.getElementById('infoOverlay').classList.add('open');
+        // 3. Modal Logic
+        const overlay = document.getElementById('infoOverlay');
+        let currentCarTitle = '';
+
+        function openInfo(id) {
+            const car = CATA.find(c => c.id === id);
+            if (!car) return;
+
+            currentCarTitle = car.title;
+
+            document.getElementById('infoImage').src = car.img;
+            document.getElementById('infoTag').innerText = car.tag;
+            document.getElementById('infoTitle').innerText = car.title;
+            document.getElementById('infoDesc').innerText = car.desc;
+
+            // Build specs
+            let specHtml = '';
+            for (const [key, val] of Object.entries(car.specs)) {
+                specHtml += `
+                    <div class="spec-item">
+                        <div class="spec-label">${key}</div>
+                        <div class="spec-val">${val}</div>
+                    </div>
+                `;
+            }
+            document.getElementById('infoSpecs').innerHTML = specHtml;
+
+            overlay.classList.add('open');
             document.body.style.overflow = 'hidden';
-            // Move focus to close button for accessibility
-            setTimeout(() => document.querySelector('.info-close-btn').focus(), 50);
         }
 
         function closeInfo() {
-            document.getElementById('infoOverlay').classList.remove('open');
+            overlay.classList.remove('open');
             document.body.style.overflow = '';
         }
 
-        function closeInfoOutside(e) {
-            if (e.target === document.getElementById('infoOverlay')) closeInfo();
-        }
-
-        function consultarDesdeInfo() {
-            const m = MODELS[current];
+        function consultFromModal() {
             closeInfo();
-            const msgs = document.getElementById('chatMessages');
-            const userBubble = document.createElement('div');
-            userBubble.className = 'msg-bubble liked';
-            userBubble.innerHTML = `💬 Quiero consultar el <strong>${m.name}<\/strong>`;
-            msgs.appendChild(userBubble);
-            msgs.scrollTop = msgs.scrollHeight;
-            sendToN8N(`Quiero consultar el ${m.name}`);
-            if (window.innerWidth <= 900) {
-                setTimeout(() => {
-                    document.querySelector('.chat-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 350);
+            openWhatsApp(currentCarTitle);
+        }
+
+        function openWhatsApp(modelName) {
+            const msg = `¡Hola Lourdes! Quisiera consultar precio y financiación para el ${modelName}.`;
+            const waUrl = `${WA_LINK}?text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Close modal when tapping outside the sheet
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeInfo();
             }
-        }
-
-        /* ─── CHAT ───────────────────────────────────────────────────────── */
-        const N8N_WEBHOOK = 'https://bot.tucerofinanciado.com/webhook/54e45968-063d-4dea-b659-881fb15b345b/chat';
-        const SESSION_ID = 'pf-' + Math.random().toString(36).slice(2);
-
-        async function sendToN8N(userText) {
-            const msgs = document.getElementById('chatMessages');
-            const typing = document.createElement('div');
-            typing.className = 'typing-indicator';
-            typing.innerHTML = '<span></span><span></span><span></span>';
-            msgs.appendChild(typing);
-            msgs.scrollTop = msgs.scrollHeight;
-
-            try {
-                const resp = await fetch(N8N_WEBHOOK, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chatInput: userText, sessionId: SESSION_ID })
-                });
-                const data = await resp.json();
-                typing.remove();
-                const reply = data.output || data.text || data.message || data.response || JSON.stringify(data);
-                const bubble = document.createElement('div');
-                bubble.className = 'msg-bubble';
-                bubble.textContent = reply;
-                msgs.appendChild(bubble);
-            } catch (err) {
-                typing.remove();
-                const bubble = document.createElement('div');
-                bubble.className = 'msg-bubble';
-                bubble.textContent = 'Hubo un problema de conexión. Intentá de nuevo 🙂';
-                msgs.appendChild(bubble);
-            }
-            msgs.scrollTop = msgs.scrollHeight;
-        }
-
-        function sendMsg() {
-            const input = document.getElementById('chatInput');
-            const inputRow = document.getElementById('inputRow');
-            const text = input.value.trim();
-            if (!text) {
-                // Shake feedback for empty message
-                inputRow.classList.remove('shake');
-                void inputRow.offsetWidth; // reflow to restart animation
-                inputRow.classList.add('shake');
-                inputRow.addEventListener('animationend', () => inputRow.classList.remove('shake'), { once: true });
-                return;
-            }
-            const msgs = document.getElementById('chatMessages');
-            const bubble = document.createElement('div');
-            bubble.className = 'msg-bubble liked';
-            bubble.textContent = text;
-            msgs.appendChild(bubble);
-            input.value = '';
-            msgs.scrollTop = msgs.scrollHeight;
-            sendToN8N(text);
-        }
-
-        function selectModel(name) {
-            const msgs = document.getElementById('chatMessages');
-            const userBubble = document.createElement('div');
-            userBubble.className = 'msg-bubble liked';
-            userBubble.textContent = `Me interesa el ${name}`;
-            msgs.appendChild(userBubble);
-            msgs.scrollTop = msgs.scrollHeight;
-            sendToN8N(`Me interesa el ${name}`);
-        }
-
-        function handleKey(e) { if (e.key === 'Enter') sendMsg(); }
-
-        /* ─── KEYBOARD SHORTCUTS ─────────────────────────────────────────── */
-        document.addEventListener('keydown', e => {
-            if (e.target.tagName === 'INPUT') return;
-            if (e.key === 'Escape') closeInfo();
         });
 
-        /* ─── LOURDES GREETING ───────────────────────────────────────────── */
-        function showLourdesGreeting() {
-            const msgs = document.getElementById('chatMessages');
-            setTimeout(() => {
-                const typing = document.createElement('div');
-                typing.id = 'typingIndicator';
-                typing.className = 'typing-indicator';
-                typing.innerHTML = '<span></span><span></span><span></span>';
-                msgs.appendChild(typing);
-                msgs.scrollTop = msgs.scrollHeight;
+        // Pull to dismiss naive implementation
+        const sheet = document.getElementById('infoSheet');
+        let startY = 0;
+        let currentY = 0;
 
-                setTimeout(() => {
-                    typing.remove();
-                    const bubble = document.createElement('div');
-                    bubble.className = 'msg-bubble';
-                    bubble.textContent = 'Hola, soy Lourdes 👋 Estoy en línea para que me consultes lo que quieras.';
-                    msgs.appendChild(bubble);
-                    const time = document.createElement('div');
-                    time.className = 'msg-time';
-                    time.textContent = 'Justo ahora';
-                    msgs.appendChild(time);
-                    msgs.scrollTop = msgs.scrollHeight;
-                }, 2000);
-            }, 800);
+        sheet.addEventListener('touchstart', e => {
+            // Only care if scrolling at the top
+            if (sheet.scrollTop <= 0) {
+                startY = e.touches[0].clientY;
+            } else {
+                startY = 0; // ignore
+            }
+        });
+
+        sheet.addEventListener('touchmove', e => {
+            if (!startY) return;
+            currentY = e.touches[0].clientY;
+            const diff = currentY - startY;
+
+            if (diff > 0) {
+                // drag down
+                sheet.style.transform = `translateY(${diff}px)`;
+                e.preventDefault(); // prevent pull-to-refresh
+            }
+        });
+
+        sheet.addEventListener('touchend', () => {
+            if (!startY) return;
+            const diff = currentY - startY;
+            sheet.style.transform = ''; // reset
+
+            if (diff > 100) {
+                closeInfo();
+            }
+            startY = 0;
+            currentY = 0;
+        });
+
+        // 4. Floating FAB appearance logic
+        window.addEventListener('load', () => {
+            // Instantly show fab on initial load
+            const fab = document.getElementById('fab');
+            if (fab) {
+                fab.classList.add('visible');
+            }
+        });
+
+        // Close WhatsApp bubble when tapping on it
+        const fab = document.getElementById('fab');
+        if (fab) {
+            fab.addEventListener('click', () => {
+                fab.classList.remove('visible');
+            });
         }
-
-        /* ─── INIT ───────────────────────────────────────────────────────── */
-        buildCards();
-        showLourdesGreeting();
     </script>
-
 </body>
 
 </html>
